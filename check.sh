@@ -1,7 +1,7 @@
 #!/bin/bash
 
 die() {
-	echo " ==> $1"
+	echo " ERROR: $1"
 	exit 1
 }
 
@@ -163,23 +163,72 @@ check_packages() {
 }
 
 check_user() {
+	# TODO: vytvor tohodle uzivatele a jeho domaci adresar
 	user="$1"
-	echo "user check not implemented"
+	echo "user check not implemented. please create user $1."
 	#useradd -k prvak
 }
 
 # TODO: xmonad --recompile
 
 check_user_environment() {
-	directory="$1"
+	user="$1"
+	# TODO: v prvakovi to nechci mit read-only!
 	# TODO: downloadni si dotfiles, scripts
-	echo "user environment check not implemented"
+	echo "user environment check not implemented. please check environment of user $1."
 
 	#cd ~prvak
 	#git clone git://github.com/MichalPokorny/dotfiles.git .
 	#mkdir bin
 	#git clone git://github.com/MichalPokorny/scripts.git bin
 	#chown -R prvak:prvak ~prvak
+
+	su "$user" -c "xmonad --recompile"
+
+	if (( $? )); then
+		die "Failed to recompile XMonad for $user!"
+	else
+		echo " ==> Recompiled XMonad of $user"
+	fi
+}
+
+check_vgaswitcheroo() {
+	tag="# Added by check.sh. Don't remove this line."
+	grep "$tag" /etc/rc.local --quiet
+
+	if (( $? )); then
+		cat >> /etc/rc.local <<EOF
+
+$tag
+# Turn off vgaswitcheroo if present.
+SWITCHER="/sys/kernel/debug/vgaswitcheroo/switch"
+[ -f \$SWITCHER ] && echo OFF > \$SWITCHER
+EOF
+		echo " ==> Added vgaswitcheroo lines to /etc/rc.local"
+	else
+		die "/etc/rc.local already tagged, won't retag."
+	fi
+}
+
+check_sudoers() {
+	tag="# Added by check.sh. Don't remove this line."
+	grep "$tag" /etc/sudoers --quiet
+
+	if (( $? )); then
+		cat >> /etc/sudoers <<EOF
+
+$tag
+# Allow mounting, unmounting and suspending.
+prvak ALL=(ALL) NOPASSWD: /home/prvak/bin/cryptomount, /home/prvak/bin/cryptounmount, /usr/sbin/pm-suspend
+EOF
+		echo " ==> /etc/sudoers set"
+	else
+		die "/etc/sudoers already tagged, won't retag."
+	fi
+}
+
+update() {
+	yaourt -Syua --noconfirm
 }
 
 check_system() {
@@ -193,12 +242,11 @@ check_system() {
 
 	check_user "prvak"
 
-	check_user_environment "~root"
-	check_user_environment "~prvak"
+	check_user_environment "root"
+	check_user_environment "prvak"
 
 	# TODO: check GRUB
 
-	# TODO: dotfiles a binfiles v prvakovi i rootovi
 	# TODO: xosdutil spravne nainstalovana
 
 	# TODO: mount -a, a je primontovany debugfs
@@ -206,13 +254,12 @@ check_system() {
 
 	#echo "none /sys/kernel/debug debugfs defaults 0 0" >> /etc/fstab
 	#cat >> /etc/rc.local <<EOF
-	#SWITCHER="/sys/kernel/debug/vgaswitcheroo/switch"
-	#[ -f \$SWITCHER ] && echo OFF > \$SWITCHER
 	#EOF
 
-	#echo 'prvak ALL=(ALL) NOPASSWD: /home/prvak/bin/cryptomount, /home/prvak/bin/cryptounmount, /usr/sbin/pm-suspend' >> /etc/sudoers
+	check_vgaswitcheroo
+	check_sudoers
 
-	#yaourt -Syua --noconfirm
+	update
 }
 
 install_grub() {
