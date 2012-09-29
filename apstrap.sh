@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Expects an Arch with all partitions mounted and with a base system.
+
 # TODO: vagrant
 
 die() {
@@ -179,8 +181,6 @@ check_user() {
 	#useradd -k prvak
 }
 
-# TODO: xmonad --recompile
-
 check_user_environment() {
 	user="$1"
 	# TODO: v prvakovi to nechci mit read-only!
@@ -241,6 +241,17 @@ update() {
 	yaourt -Syua --noconfirm
 }
 
+install_grub() {
+	if [ -n "$DISK_DEVICE" ]; then
+		grub-install "$DISK_DEVICE" # TODO: vybrat zarizeni!
+		grub-mkconfig > /boot/grub/grub.cfg
+		mkinitcpio -p linux
+		echo " ==> GRUB installed"
+	else
+		echo " ==> Not installing GRUB: disk device unspecified"
+	fi
+}
+
 check_system() {
 	check_yaourt
 	check_hostname
@@ -271,18 +282,15 @@ check_system() {
 
 	update
 
+	install_grub
+
 	echo "Most drone work done. The remaining stuff:"
 	echo "    Configure /etc/hosts: add l-alias, hostname alias"
 	echo "    Configure the web server."
 
+	# TODO:
 	#/etc/lighttpd/lighttpd.conf; lighttpd do demonu
 	#mkdir -p /srv/http/public
-}
-
-install_grub() {
-	grub-install /dev/sdb # TODO: vybrat zarizeni!
-	grub-mkconfig > /boot/grub/grub.cfg
-	mkinitcpio -p linux
 }
 
 INSTALL_SERVERS=1
@@ -293,7 +301,10 @@ INSTALL_DEVEL=1
 INSTALL_GAMES=1
 INSTALL_MUSIC=1
 HOSTNAME=""
+DISK_DEVICE=""
 
+echo "apstrap by prvak"
 check_system
 
 # TODO: echo "vboxdrv" >> /etc/modules-load.d/virtualbox.conf
+# TODO: blacklist pcspkr
