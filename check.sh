@@ -8,7 +8,7 @@ die() {
 }
 
 ensure_installed() {
-	pacman -Q "$1" > /dev/null
+	pacman -Q "$1" 2>&1 > /dev/null
 	if (( $? )); then
 		echo " ==> Package not installed: $package!"
 
@@ -111,7 +111,7 @@ get_package_selection() {
 	# Console utils, font
 	PACKAGES+=(mc wget elinks tmux terminus-font gvim calc openssh alsa-utils colordiff sudo sux autojump powertop iftop iotop ack lftp)
 	PACKAGES+=(acpi acpid pm-utils unrar zip)
-	PACKAGES+=(gcc patch grub-bios make)
+	PACKAGES+=(gcc patch grub-bios make mlocate bash-completion)
 
 	# TODO: drivery
 	PACKAGES+=(wicd git)
@@ -127,6 +127,11 @@ get_package_selection() {
 
 	# (La)TeX
 	PACKAGES+=(lyx gnuplot)
+
+	# texlive-most
+	PACKAGES+=(texlive-core texlive-fontsextra texlive-formatsextra texlive-games texlive-genericextra)
+	PACKAGES+=(texlive-htmlxml texlive-humanities texlive-latexextra texlive-music texlive-pictures)
+	PACKAGES+=(texlive-plainextra texlive-pstricks texlive-publishers texlive-science)
 
 	# File sharing
 	PACKAGES+=(amule transmission-gtk)
@@ -145,6 +150,8 @@ get_package_selection() {
 
 	PACKAGES+=(testdisk)
 
+	PACKAGES+=(tuxguitar)
+
 	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind monodevelop ruby php ghc)
 	(( $INSTALL_SERVERS )) && PACKAGES+=(lighttpd mysql apache)
 	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc)
@@ -152,6 +159,7 @@ get_package_selection() {
 	(( $INSTALL_GAMES )) && PACKAGES+=(nethack adom slashem freeciv)
 	(( $INSTALL_STUFF )) && PACKAGES+=(homebank sage urbanterror blender krusader)
 	(( $INSTALL_ANDROID )) && PACKAGES+=(eclipse android-sdk)
+
 	echo "${PACKAGES[@]}"
 }
 
@@ -208,7 +216,7 @@ SWITCHER="/sys/kernel/debug/vgaswitcheroo/switch"
 EOF
 		echo " ==> Added vgaswitcheroo lines to /etc/rc.local"
 	else
-		die "/etc/rc.local already tagged, won't retag."
+		echo " ==> /etc/rc.local already tagged, won't retag."
 	fi
 }
 
@@ -225,7 +233,7 @@ prvak ALL=(ALL) NOPASSWD: /home/prvak/bin/cryptomount, /home/prvak/bin/cryptounm
 EOF
 		echo " ==> /etc/sudoers set"
 	else
-		die "/etc/sudoers already tagged, won't retag."
+		echo " ==> /etc/sudoers already tagged, won't retag."
 	fi
 }
 
