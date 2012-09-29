@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: vagrant
+
 die() {
 	echo " ERROR: $1"
 	exit 1
@@ -260,6 +262,13 @@ check_system() {
 	check_sudoers
 
 	update
+
+	echo "Most drone work done. The remaining stuff:"
+	echo "    Configure /etc/hosts: add l-alias, hostname alias"
+	echo "    Configure the web server."
+
+	#/etc/lighttpd/lighttpd.conf; lighttpd do demonu
+	#mkdir -p /srv/http/public
 }
 
 install_grub() {
@@ -278,3 +287,5 @@ INSTALL_MUSIC=1
 HOSTNAME=""
 
 check_system
+
+# TODO: echo "vboxdrv" >> /etc/modules-load.d/virtualbox.conf
