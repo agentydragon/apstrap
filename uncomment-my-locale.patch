@@ -1,0 +1,37 @@
+diff -cBr old/locale.gen new/locale.gen
+*** old/locale.gen	2012-09-28 05:44:58.916888787 +0200
+--- new/locale.gen	2012-09-28 05:44:48.153555973 +0200
+***************
+*** 100,106 ****
+  #ca_IT.UTF-8 UTF-8  
+  #ca_IT ISO-8859-15  
+  #crh_UA UTF-8  
+! #cs_CZ.UTF-8 UTF-8  
+  #cs_CZ ISO-8859-2  
+  #csb_PL UTF-8  
+  #cv_RU UTF-8  
+--- 100,106 ----
+  #ca_IT.UTF-8 UTF-8  
+  #ca_IT ISO-8859-15  
+  #crh_UA UTF-8  
+! cs_CZ.UTF-8 UTF-8  
+  #cs_CZ ISO-8859-2  
+  #csb_PL UTF-8  
+  #cv_RU UTF-8  
+***************
+*** 152,158 ****
+  #en_PH ISO-8859-1  
+  #en_SG.UTF-8 UTF-8  
+  #en_SG ISO-8859-1  
+! #en_US.UTF-8 UTF-8  
+  #en_US ISO-8859-1  
+  #en_ZA.UTF-8 UTF-8  
+  #en_ZA ISO-8859-1  
+--- 152,158 ----
+  #en_PH ISO-8859-1  
+  #en_SG.UTF-8 UTF-8  
+  #en_SG ISO-8859-1  
+! en_US.UTF-8 UTF-8  
+  #en_US ISO-8859-1  
+  #en_ZA.UTF-8 UTF-8  
+  #en_ZA ISO-8859-1  
