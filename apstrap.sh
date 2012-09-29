@@ -150,6 +150,9 @@ get_package_selection() {
 	# Fine tuning
 	PACKAGES+=(cpupower e4rat)
 
+	# For webcam-record
+	PACKAGES+=(gstreamer0.10-good-plugins)
+
 	PACKAGES+=(testdisk)
 
 	PACKAGES+=(tuxguitar)
@@ -159,7 +162,7 @@ get_package_selection() {
 	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc)
 	(( $INSTALL_MAIL )) && PACKAGES+=(postfix mutt fetchmail procmail)
 	(( $INSTALL_GAMES )) && PACKAGES+=(nethack adom slashem freeciv)
-	(( $INSTALL_STUFF )) && PACKAGES+=(homebank sage urbanterror blender krusader)
+	(( $INSTALL_STUFF )) && PACKAGES+=(homebank sage urbanterror blender krusader chromium)
 	(( $INSTALL_ANDROID )) && PACKAGES+=(eclipse android-sdk)
 
 	echo "${PACKAGES[@]}"
