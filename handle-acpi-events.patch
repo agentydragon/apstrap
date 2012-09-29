@@ -1,0 +1,25 @@
+--- handler_old.sh	2012-09-29 22:40:30.233775838 +0200
++++ handler.sh	2012-09-29 22:48:38.210444112 +0200
+@@ -12,7 +12,13 @@
+         case "$2" in
+             PBTN|PWRF)
+                 logger "PowerButton pressed: $2"
+-                poweroff
++                # poweroff
++		CHARGE=$((`acpi -b | cut -d, -f2 | cut -d% -f1`))
++		if [ $CHARGE -gt 15 ]; then
++			pm-suspend
++		else
++			pm-hibernate
++		fi
+                 ;;
+             *)
+                 logger "ACPI action undefined: $2"
+@@ -49,6 +55,7 @@
+         esac
+         ;;
+     battery)
++	su prvak /home/prvak/bin/xosdutilctl acpi-event
+         case "$2" in
+             BAT0)
+                 case "$4" in

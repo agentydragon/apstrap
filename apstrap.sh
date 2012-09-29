@@ -4,6 +4,11 @@
 
 # TODO: vagrant
 
+if [[ $EUID -ne 0 ]]; then
+	echo "apstrap must be run as root."
+	exit 1
+fi
+
 die() {
 	echo " ERROR: $1"
 	exit 1
@@ -15,7 +20,7 @@ ensure_installed() {
 		echo " ==> Package not installed: $package!"
 
 		# TODO: co yaourtove baliky?
-		pacman --noconfirm -S $package
+		pacman --noconfirm -S $package 2>&1 > /dev/null
 		if (( $? )); then
 			echo " ==> Failed to install package!"
 			exit 1
@@ -255,6 +260,10 @@ install_grub() {
 	fi
 }
 
+patch_acpi_event_handler() {
+	patch -p1 /etc/acpi/handler.sh handle-acpi-events.patch
+}
+
 check_system() {
 	check_yaourt
 	check_hostname
@@ -282,6 +291,8 @@ check_system() {
 
 	check_vgaswitcheroo
 	check_sudoers
+
+	patch_acpi_event_handler
 
 	update
 
