@@ -19,8 +19,7 @@ ensure_installed() {
 	if (( $? )); then
 		echo " ==> Package not installed: $package!"
 
-		# TODO: co yaourtove baliky?
-		pacman --noconfirm -S $package 2>&1 > /dev/null
+		yaourt --noconfirm -S $package 2>&1 > /dev/null
 		if (( $? )); then
 			echo " ==> Failed to install package!"
 			exit 1
@@ -144,6 +143,7 @@ get_package_selection() {
 	PACKAGES+=(amule transmission-gtk)
 
 	PACKAGES+=(virtualbox)
+	gpasswd -a prvak vboxusers 2>&1 > /dev/null
 
 	# Chce multilib
 	#$INSTALL wine
@@ -167,7 +167,7 @@ get_package_selection() {
 	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc)
 	(( $INSTALL_MAIL )) && PACKAGES+=(postfix mutt fetchmail procmail)
 	(( $INSTALL_GAMES )) && PACKAGES+=(nethack adom slashem freeciv)
-	(( $INSTALL_STUFF )) && PACKAGES+=(homebank sage urbanterror blender krusader chromium)
+	(( $INSTALL_STUFF )) && PACKAGES+=(homebank sage urbanterror blender krusader chromium asymptote selenium-server-standalone)
 	(( $INSTALL_ANDROID )) && PACKAGES+=(eclipse android-sdk)
 
 	echo "${PACKAGES[@]}"
@@ -176,7 +176,7 @@ get_package_selection() {
 check_packages() {
 	echo "Checking packages..."
 	for package in `get_package_selection`; do
-	#	echo "    $package"
+		# echo "    $package"
 		ensure_installed "$package"
 	done
 	echo " ==> Packages OK."
@@ -246,7 +246,12 @@ EOF
 }
 
 update() {
-	yaourt -Syua --noconfirm
+	yaourt -Syua --noconfirm 2>&1 > /dev/null
+	if (( $? )); then
+		die "Error updating system!"
+	else
+		echo " ==> System updated"
+	fi
 }
 
 install_grub() {
@@ -264,6 +269,21 @@ patch_acpi_event_handler() {
 	patch -p1 /etc/acpi/handler.sh handle-acpi-events.patch
 }
 
+check_gems() {
+	GEMS=()
+
+	# btcreport
+	GEMS+=(eu_central_bank money mtgox)
+
+	# incoming-mail
+	GEMS+=(mail)
+
+	gem install ${GEMS[@]}
+	(( $? )) && die "Failed to install required gems for root!"
+	su prvak gem install ${GEMS[@]}
+	(( $? )) && die "Failed to install required gems for prvak!"
+}
+
 check_system() {
 	check_yaourt
 	check_hostname
@@ -272,6 +292,7 @@ check_system() {
 	check_locale_gen
 	check_locale
 	check_packages
+	check_gems
 
 	check_user "prvak"
 
