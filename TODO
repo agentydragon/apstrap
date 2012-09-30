@@ -1,6 +1,3 @@
 e4rat
 	- generovat spravny init v grub-mkconfig
 		(/etc/default/grub, init=/usr/sbin/e4rat-preload-lite)
-
-patchovani: poznat, ze uz probehlo, a potom to bude OK. jestli nejde provest, umrit na to.
-

@@ -106,9 +106,16 @@ check_locale() {
 }
 
 check_locale_gen() {
-	# patch -p1 /etc/locale.gen uncomment-my-locale.patch
-	# locale-gen
-	echo "check_locale_gen unimplemented."
+	# TODO: check double-apply
+	if [ ! -f /etc/locale.gen ]; then
+		die "/etc/locale.gen doesn't exist!"
+	fi
+
+	patch -p1 /etc/locale.gen uncomment-my-locale.patch -N -r-
+	if (( $? )); then
+		die "Error patching /etc/locale.gen!"
+	fi
+	locale-gen
 }
 
 get_package_selection() {
@@ -266,7 +273,10 @@ install_grub() {
 }
 
 patch_acpi_event_handler() {
-	patch -p1 /etc/acpi/handler.sh handle-acpi-events.patch
+	patch -p1 /etc/acpi/handler.sh handle-acpi-events.patch -N -r-
+	if (( $? )); then
+		die "Error patching /etc/acpi/handler.sh!"
+	fi
 }
 
 check_gems() {
@@ -280,7 +290,7 @@ check_gems() {
 
 	gem install ${GEMS[@]}
 	(( $? )) && die "Failed to install required gems for root!"
-	su prvak gem install ${GEMS[@]}
+	su prvak sh -c "gem install ${GEMS[@]}"
 	(( $? )) && die "Failed to install required gems for prvak!"
 }
 
