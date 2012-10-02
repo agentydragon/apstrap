@@ -169,7 +169,7 @@ get_package_selection() {
 
 	PACKAGES+=(tuxguitar)
 
-	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind monodevelop ruby php ghc)
+	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind monodevelop ruby php ghc bless)
 	(( $INSTALL_SERVERS )) && PACKAGES+=(lighttpd mysql apache)
 	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc)
 	(( $INSTALL_MAIL )) && PACKAGES+=(postfix mutt fetchmail procmail)
