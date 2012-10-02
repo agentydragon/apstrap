@@ -123,7 +123,7 @@ get_package_selection() {
 
 	# Console utils, font
 	PACKAGES+=(mc wget elinks tmux terminus-font gvim calc openssh alsa-utils colordiff sudo sux autojump powertop iftop iotop ack lftp)
-	PACKAGES+=(acpi acpid pm-utils unrar zip macchanger)
+	PACKAGES+=(acpi acpid pm-utils unrar zip macchanger smartmontools)
 	PACKAGES+=(gcc patch grub-bios make mlocate bash-completion)
 
 	# TODO: drivery
