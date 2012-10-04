@@ -169,13 +169,13 @@ get_package_selection() {
 
 	PACKAGES+=(tuxguitar)
 
-	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind monodevelop ruby php ghc bless doxygen)
+	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind monodevelop ruby php ghc bless doxygen gcolor2)
 	(( $INSTALL_SERVERS )) && PACKAGES+=(lighttpd mysql apache)
 	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc)
 	(( $INSTALL_MAIL )) && PACKAGES+=(postfix mutt fetchmail procmail)
 	(( $INSTALL_GAMES )) && PACKAGES+=(nethack adom slashem freeciv)
 	(( $INSTALL_STUFF )) && PACKAGES+=(homebank sage urbanterror blender krusader chromium asymptote selenium-server-standalone)
-	(( $INSTALL_ANDROID )) && PACKAGES+=(eclipse android-sdk)
+	(( $INSTALL_ANDROID )) && PACKAGES+=(eclipse android-sdk eclipse-android)
 
 	echo "${PACKAGES[@]}"
 }
