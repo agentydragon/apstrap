@@ -122,9 +122,12 @@ get_package_selection() {
 	PACKAGES=()
 
 	# Console utils, font
-	PACKAGES+=(mc wget elinks tmux terminus-font gvim calc openssh alsa-utils colordiff sudo sux autojump powertop iftop iotop ack lftp)
+	PACKAGES+=(mc wget elinks lynx tmux terminus-font gvim calc openssh alsa-utils colordiff sudo sux autojump powertop iftop iotop ack lftp)
 	PACKAGES+=(acpi acpid pm-utils unrar zip macchanger smartmontools)
 	PACKAGES+=(gcc patch grub-bios make mlocate bash-completion)
+	PACKAGES+=(exfat-utils fuse-exfat nmap iptables dnsutils)
+
+	PACKAGES+=(fortune-mod)
 
 	# TODO: drivery
 	PACKAGES+=(wicd git)
@@ -134,6 +137,7 @@ get_package_selection() {
 
 	# X applications
 	PACKAGES+=(rxvt-unicode firefox gimp inkscape evince mplayer flashplugin vlc xscreensaver feh orage zim pidgin xclip geeqie lxappearance xvidcap)
+	PACKAGES+=(scrot)
 
 	# xosdutil dependencies
 	PACKAGES+=(libconfig xosd font-bh-ttf)
@@ -160,7 +164,7 @@ get_package_selection() {
 	PACKAGES+=(libreoffice-base libreoffice-calc libreoffice-draw libreoffice-en-US libreoffice-gnome libreoffice-impress libreoffice-math libreoffice-writer)
 
 	# Fine tuning
-	PACKAGES+=(cpupower e4rat)
+	PACKAGES+=(cpupower e4rat xorg-xkill)
 
 	# For webcam-record
 	PACKAGES+=(gstreamer0.10-good-plugins)
@@ -169,12 +173,12 @@ get_package_selection() {
 
 	PACKAGES+=(tuxguitar)
 
-	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind monodevelop ruby php ghc bless doxygen gcolor2)
+	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind monodevelop ruby php ghc bless doxygen gcolor2 wireshark-gtk cmake swi-prolog)
 	(( $INSTALL_SERVERS )) && PACKAGES+=(lighttpd mysql apache)
-	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc)
+	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc fmit vorbis-tools audacity)
 	(( $INSTALL_MAIL )) && PACKAGES+=(postfix mutt fetchmail procmail)
-	(( $INSTALL_GAMES )) && PACKAGES+=(nethack adom slashem freeciv)
-	(( $INSTALL_STUFF )) && PACKAGES+=(homebank sage urbanterror blender krusader chromium asymptote selenium-server-standalone)
+	(( $INSTALL_GAMES )) && PACKAGES+=(nethack adom slashem freeciv ltris)
+	(( $INSTALL_STUFF )) && PACKAGES+=(octave homebank sage urbanterror blender krusader chromium asymptote selenium-server-standalone)
 	(( $INSTALL_ANDROID )) && PACKAGES+=(eclipse android-sdk eclipse-android)
 
 	echo "${PACKAGES[@]}"

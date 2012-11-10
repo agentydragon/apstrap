@@ -5,3 +5,20 @@ e4rat
 /etc/sudoers: wheel
 l-alias do /etc/hosts
 systemd
+	- servisy plus readahead
+
+/usr/share/eclipse/eclipse.ini
+	- neslo by to nejak nacpat do mych dotfiles?
+
+/etc/hosts: atrey
+
++freetype2-infinality
+	- nahradi freetype2
++lib32-freetype2-infinality
+	- chce gcc-multilib, ktere nahradi gcc
++fontconfig-infinality
+	-> infctl setstyle infinality 
+
+cron na backup skript
+
+vagrant - testing
