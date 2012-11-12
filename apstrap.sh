@@ -125,7 +125,7 @@ get_package_selection() {
 	PACKAGES+=(mc wget elinks lynx tmux terminus-font gvim calc openssh alsa-utils colordiff sudo sux autojump powertop iftop iotop ack lftp)
 	PACKAGES+=(acpi acpid pm-utils unrar zip macchanger smartmontools)
 	PACKAGES+=(gcc patch grub-bios make mlocate bash-completion)
-	PACKAGES+=(exfat-utils fuse-exfat nmap iptables dnsutils)
+	PACKAGES+=(exfat-utils fuse-exfat nmap iptables dnsutils sshfs)
 
 	PACKAGES+=(fortune-mod)
 
@@ -178,7 +178,7 @@ get_package_selection() {
 	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc fmit vorbis-tools audacity)
 	(( $INSTALL_MAIL )) && PACKAGES+=(postfix mutt fetchmail procmail)
 	(( $INSTALL_GAMES )) && PACKAGES+=(nethack adom slashem freeciv ltris)
-	(( $INSTALL_STUFF )) && PACKAGES+=(octave homebank sage urbanterror blender krusader chromium asymptote selenium-server-standalone)
+	(( $INSTALL_STUFF )) && PACKAGES+=(octave homebank sage urbanterror blender krusader chromium asymptote selenium-server-standalone freemind)
 	(( $INSTALL_ANDROID )) && PACKAGES+=(eclipse android-sdk eclipse-android)
 
 	echo "${PACKAGES[@]}"
