@@ -132,54 +132,64 @@ get_package_selection() {
 	# TODO: drivery
 	PACKAGES+=(wicd git)
 
-	# X
-	PACKAGES+=(xorg-server xorg-xdm xmonad xmonad-contrib)
+	if (( $INSTALL_X )); then
+		# X
+		PACKAGES+=(xorg-server xorg-xdm xmonad xmonad-contrib)
+			
+		# X applications
+		PACKAGES+=(rxvt-unicode firefox gimp inkscape evince mplayer flashplugin vlc xscreensaver feh orage zim pidgin xclip geeqie lxappearance xvidcap)
+		PACKAGES+=(scrot)
 
-	# X applications
-	PACKAGES+=(rxvt-unicode firefox gimp inkscape evince mplayer flashplugin vlc xscreensaver feh orage zim pidgin xclip geeqie lxappearance xvidcap)
-	PACKAGES+=(scrot)
+		# xosdutil dependencies
+		PACKAGES+=(libconfig xosd font-bh-ttf)
 
-	# xosdutil dependencies
-	PACKAGES+=(libconfig xosd font-bh-ttf)
+		PACKAGES+=(lyx)
 
-	# (La)TeX
-	PACKAGES+=(lyx gnuplot)
+		# File sharing
+		PACKAGES+=(amule transmission-gtk)
+
+		PACKAGES+=(virtualbox)
+		gpasswd -a prvak vboxusers 2>&1 > /dev/null
+
+		# Libreoffice
+		PACKAGES+=(libreoffice-base libreoffice-calc libreoffice-draw libreoffice-en-US libreoffice-gnome libreoffice-impress libreoffice-math libreoffice-writer)
+
+		PACKAGES+=(xorg-xkill)
+	
+		PACKAGES+=(tuxguitar)
+
+		(( $INSTALL_DEVEL )) && PACKAGES+=(monodevelop bless gcolor2 wireshark-gtk)
+		(( $INSTALL_MUSIC )) && PACKAGES+=(fmit audacity)
+		(( $INSTALL_GAMES )) && PACKAGES+=(freeciv ltris)
+		(( $INSTALL_STUFF )) && PACKAGES+=(homebank sage urbanterror blender krusader chromium freemind)
+		(( $INSTALL_ANDROID )) && PACKAGES+=(eclipse android-sdk eclipse-android)
+	fi
+
+	PACKAGES+=(gnuplot)
 
 	# texlive-most
 	PACKAGES+=(texlive-core texlive-fontsextra texlive-formatsextra texlive-games texlive-genericextra)
 	PACKAGES+=(texlive-htmlxml texlive-humanities texlive-latexextra texlive-music texlive-pictures)
 	PACKAGES+=(texlive-plainextra texlive-pstricks texlive-publishers texlive-science)
 
-	# File sharing
-	PACKAGES+=(amule transmission-gtk)
-
-	PACKAGES+=(virtualbox)
-	gpasswd -a prvak vboxusers 2>&1 > /dev/null
-
 	# Chce multilib
 	#$INSTALL wine
 	#$INSTALL skype
 
-	# Libreoffice.
-	PACKAGES+=(libreoffice-base libreoffice-calc libreoffice-draw libreoffice-en-US libreoffice-gnome libreoffice-impress libreoffice-math libreoffice-writer)
-
 	# Fine tuning
-	PACKAGES+=(cpupower e4rat xorg-xkill)
+	PACKAGES+=(cpupower e4rat)
 
 	# For webcam-record
 	PACKAGES+=(gstreamer0.10-good-plugins)
 
 	PACKAGES+=(testdisk)
 
-	PACKAGES+=(tuxguitar)
-
-	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind monodevelop ruby php ghc bless doxygen gcolor2 wireshark-gtk cmake swi-prolog)
+	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind ruby php ghc doxygen cmake swi-prolog)
 	(( $INSTALL_SERVERS )) && PACKAGES+=(lighttpd mysql apache)
-	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc fmit vorbis-tools audacity)
+	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc vorbis-tools)
 	(( $INSTALL_MAIL )) && PACKAGES+=(postfix mutt fetchmail procmail)
-	(( $INSTALL_GAMES )) && PACKAGES+=(nethack adom slashem freeciv ltris)
-	(( $INSTALL_STUFF )) && PACKAGES+=(octave homebank sage urbanterror blender krusader chromium asymptote selenium-server-standalone freemind)
-	(( $INSTALL_ANDROID )) && PACKAGES+=(eclipse android-sdk eclipse-android)
+	(( $INSTALL_GAMES )) && PACKAGES+=(nethack adom slashem)
+	(( $INSTALL_STUFF )) && PACKAGES+=(octave asymptote selenium-server-standalone)
 
 	echo "${PACKAGES[@]}"
 }
@@ -298,15 +308,23 @@ check_gems() {
 	(( $? )) && die "Failed to install required gems for prvak!"
 }
 
+enable_daemons() {
+	systemctl enable upower
+	systemctl enable dbus
+	(( $INSTALL_MUSIC )) && systemctl enable mpd
+	(( $INSTALL_X )) && systemctl enable xdm
+	(( $INSTALL_SERVERS )) && systemctl enable mysqld
+}
+
 check_system() {
 	check_yaourt
 	check_hostname
 	check_timezone
 	check_font
-	check_locale_gen
 	check_locale
 	check_packages
 	check_gems
+	check_locale_gen
 
 	check_user "prvak"
 
@@ -333,6 +351,8 @@ check_system() {
 
 	install_grub
 
+	enable_daemons
+
 	echo "Most drone work done. The remaining stuff:"
 	echo "    Configure /etc/hosts: add l-alias, hostname alias"
 	echo "    Configure the web server."
@@ -349,6 +369,7 @@ INSTALL_STUFF=1
 INSTALL_DEVEL=1
 INSTALL_GAMES=1
 INSTALL_MUSIC=1
+INSTALL_X=1
 HOSTNAME=""
 DISK_DEVICE=""
 
