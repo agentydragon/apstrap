@@ -186,7 +186,7 @@ get_package_selection() {
 
 	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind ruby php ghc doxygen cmake swi-prolog)
 	(( $INSTALL_SERVERS )) && PACKAGES+=(lighttpd mysql apache)
-	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc vorbis-tools)
+	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc vorbis-tools pulseaudio pulseaudio-alsa)
 	(( $INSTALL_MAIL )) && PACKAGES+=(postfix mutt fetchmail procmail)
 	(( $INSTALL_GAMES )) && PACKAGES+=(nethack adom slashem)
 	(( $INSTALL_STUFF )) && PACKAGES+=(octave asymptote selenium-server-standalone)
