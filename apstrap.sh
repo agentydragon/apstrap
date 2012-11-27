@@ -138,7 +138,7 @@ get_package_selection() {
 			
 		# X applications
 		PACKAGES+=(rxvt-unicode firefox gimp inkscape evince mplayer flashplugin vlc xscreensaver feh orage zim pidgin xclip geeqie lxappearance xvidcap)
-		PACKAGES+=(scrot)
+		PACKAGES+=(scrot xloadimage)
 
 		# xosdutil dependencies
 		PACKAGES+=(libconfig xosd font-bh-ttf)
@@ -161,8 +161,9 @@ get_package_selection() {
 		(( $INSTALL_DEVEL )) && PACKAGES+=(monodevelop bless gcolor2 wireshark-gtk)
 		(( $INSTALL_MUSIC )) && PACKAGES+=(fmit audacity)
 		(( $INSTALL_GAMES )) && PACKAGES+=(freeciv ltris)
-		(( $INSTALL_STUFF )) && PACKAGES+=(homebank sage urbanterror blender krusader chromium freemind)
+		(( $INSTALL_STUFF )) && PACKAGES+=(homebank sage urbanterror blender krusader chromium freemind mypaint)
 		(( $INSTALL_ANDROID )) && PACKAGES+=(eclipse android-sdk eclipse-android)
+		(( $INSTALL_TABLET )) && PACKAGES+=(mypaint xournal)
 	fi
 
 	PACKAGES+=(gnuplot)
@@ -369,6 +370,7 @@ INSTALL_STUFF=1
 INSTALL_DEVEL=1
 INSTALL_GAMES=1
 INSTALL_MUSIC=1
+INSTALL_TABLET=1
 INSTALL_X=1
 HOSTNAME=""
 DISK_DEVICE=""

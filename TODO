@@ -23,3 +23,6 @@ systemd
 cron na backup skript
 
 vagrant - testing
+
+libva-intel-driver
+mesa-demos
