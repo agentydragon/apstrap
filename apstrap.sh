@@ -134,7 +134,7 @@ get_package_selection() {
 
 	if (( $INSTALL_X )); then
 		# X
-		PACKAGES+=(xorg-server xorg-xdm xmonad xmonad-contrib)
+		PACKAGES+=(xorg-server xorg-xdm xmonad xmonad-contrib xorg-xrandr)
 			
 		# X applications
 		PACKAGES+=(rxvt-unicode firefox gimp inkscape evince mplayer flashplugin vlc xscreensaver feh orage zim pidgin xclip geeqie lxappearance xvidcap)
