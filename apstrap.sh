@@ -125,7 +125,7 @@ get_package_selection() {
 	PACKAGES+=(mc wget elinks lynx tmux terminus-font gvim calc openssh alsa-utils colordiff sudo sux autojump powertop iftop iotop ack lftp)
 	PACKAGES+=(acpi acpid pm-utils unrar zip macchanger smartmontools)
 	PACKAGES+=(gcc patch grub-bios make mlocate bash-completion)
-	PACKAGES+=(exfat-utils fuse-exfat nmap iptables dnsutils sshfs)
+	PACKAGES+=(exfat-utils fuse-exfat nmap iptables dnsutils sshfs gnu-netcat)
 
 	PACKAGES+=(fortune-mod)
 
@@ -138,7 +138,7 @@ get_package_selection() {
 			
 		# X applications
 		PACKAGES+=(rxvt-unicode firefox gimp inkscape evince mplayer flashplugin vlc xscreensaver feh orage zim pidgin xclip geeqie lxappearance xvidcap)
-		PACKAGES+=(scrot xloadimage)
+		PACKAGES+=(scrot xloadimage graphviz)
 
 		# xosdutil dependencies
 		PACKAGES+=(libconfig xosd font-bh-ttf)

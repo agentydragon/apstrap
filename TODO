@@ -26,3 +26,5 @@ vagrant - testing
 
 libva-intel-driver
 mesa-demos
+
+~/.local/share/recently-used.xbel: >, chattr +i
