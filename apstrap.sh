@@ -134,11 +134,11 @@ get_package_selection() {
 
 	if (( $INSTALL_X )); then
 		# X
-		PACKAGES+=(xorg-server xorg-xdm xmonad xmonad-contrib xorg-xrandr)
-			
+		PACKAGES+=(xorg-server xorg-xdm xmonad xmonad-contrib xorg-xrandr xorg-xmodmap)
+
 		# X applications
 		PACKAGES+=(rxvt-unicode firefox gimp inkscape evince mplayer flashplugin vlc xscreensaver feh orage zim pidgin xclip geeqie lxappearance xvidcap)
-		PACKAGES+=(scrot xloadimage graphviz)
+		PACKAGES+=(scrot xloadimage graphviz eog konversation)
 
 		# xosdutil dependencies
 		PACKAGES+=(libconfig xosd font-bh-ttf)
