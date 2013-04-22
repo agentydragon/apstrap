@@ -185,7 +185,7 @@ get_package_selection() {
 
 	PACKAGES+=(testdisk)
 
-	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind ruby php ghc doxygen cmake swi-prolog)
+	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind ruby php ghc doxygen cmake swi-prolog markdown)
 	(( $INSTALL_SERVERS )) && PACKAGES+=(lighttpd mysql apache)
 	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc vorbis-tools pulseaudio pulseaudio-alsa)
 	(( $INSTALL_MAIL )) && PACKAGES+=(postfix mutt fetchmail procmail)
