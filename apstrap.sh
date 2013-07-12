@@ -140,6 +140,9 @@ get_package_selection() {
 		PACKAGES+=(rxvt-unicode firefox gimp inkscape evince mplayer flashplugin vlc xscreensaver feh orage zim pidgin xclip geeqie lxappearance xvidcap)
 		PACKAGES+=(scrot xloadimage graphviz eog konversation)
 
+		# Wacom driver
+		PACKAGES+=(xf86-input-wacom)
+
 		# xosdutil dependencies
 		PACKAGES+=(libconfig xosd font-bh-ttf)
 
@@ -185,7 +188,7 @@ get_package_selection() {
 
 	PACKAGES+=(testdisk)
 
-	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind ruby php ghc doxygen cmake swi-prolog markdown jslint)
+	(( $INSTALL_DEVEL )) && PACKAGES+=(subversion gdb valgrind ruby php ghc doxygen cmake swi-prolog markdown jslint gprof2dot-git)
 	(( $INSTALL_SERVERS )) && PACKAGES+=(lighttpd mysql apache)
 	(( $INSTALL_MUSIC )) && PACKAGES+=(mpd ncmpcpp mpc vorbis-tools pulseaudio pulseaudio-alsa)
 	(( $INSTALL_MAIL )) && PACKAGES+=(postfix mutt fetchmail procmail)
