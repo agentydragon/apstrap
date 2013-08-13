@@ -30,3 +30,5 @@ mesa-demos
 ~/.local/share/recently-used.xbel: >, chattr +i
 
 vim coffeescript, powerline, ...
+
+systemctl enable atd, install package
