@@ -138,7 +138,7 @@ get_package_selection() {
 
 		# X applications
 		PACKAGES+=(rxvt-unicode firefox gimp inkscape evince mplayer flashplugin vlc xscreensaver feh orage zim pidgin xclip geeqie lxappearance xvidcap)
-		PACKAGES+=(scrot xloadimage graphviz eog konversation)
+		PACKAGES+=(scrot xloadimage graphviz eog konversation hamster-time-tracker)
 
 		# Wacom driver
 		PACKAGES+=(xf86-input-wacom)
